@@ -11,6 +11,7 @@ import Contact from "@/components/Contact";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import EnquiryModal from "@/components/EnquiryModal";
 
 export default function Page() {
   return (
@@ -30,6 +31,7 @@ export default function Page() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <EnquiryModal />
     </>
   );
 }

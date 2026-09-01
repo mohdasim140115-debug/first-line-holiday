@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Icon from "./Icon";
+import EnquiryButton from "./EnquiryButton";
 import { company, whatsappLink } from "@/lib/content";
 
-function CardButtons({ waMessage }) {
+function CardButtons({ waMessage, packageName }) {
   return (
     <div className="mt-3 grid grid-cols-3 gap-1.5">
       <a
@@ -21,13 +22,10 @@ function CardButtons({ waMessage }) {
         <Icon name="whatsapp" className="h-3.5 w-3.5 text-[#25D366]" />
         WhatsApp
       </a>
-      <a
-        href="#contact"
+      <EnquiryButton
+        packageName={packageName}
         className="inline-flex items-center justify-center gap-1 rounded-md bg-royal-deep px-2 py-2 text-[0.72rem] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-      >
-        <Icon name="mail" className="h-3.5 w-3.5" />
-        Enquiry
-      </a>
+      />
     </div>
   );
 }
@@ -95,11 +93,9 @@ export default function PackageCard({ pkg }) {
             </span>
           </div>
 
-          <CardButtons waMessage={waMessage} />
+          <CardButtons waMessage={waMessage} packageName={pkg.name} />
         </div>
       </div>
     </article>
   );
 }
-
-export { CardButtons };
