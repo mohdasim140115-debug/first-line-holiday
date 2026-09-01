@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import Icon from "./Icon";
 import { submitEnquiry } from "@/lib/submitEnquiry";
 import { destinationOptions, tripTypes } from "@/lib/content";
 
+const travellerOptions = ["1 Traveller", "2 Travellers", "3–4 Travellers", "5+ Travellers"];
+
 export default function TripPlanner() {
+  const uid = useId();
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -32,14 +35,31 @@ export default function TripPlanner() {
     }
   };
 
-  const field =
-    "w-full rounded-lg border border-white/20 bg-white/10 px-3.5 py-2.5 text-sm text-white outline-none transition placeholder:text-white/45 focus:border-white/50 focus:bg-white/15 [&>option]:text-ink";
+  const base =
+    "h-11 w-full rounded-lg border border-white/20 bg-white/10 px-3.5 text-sm text-white outline-none transition placeholder:text-white/45 focus:border-white/60 focus:bg-white/15";
   const label = "mb-1.5 block text-[0.68rem] font-semibold uppercase tracking-wider text-white/60";
+
+  const Select = ({ id, value, onChange, children }) => (
+    <div className="relative">
+      <select
+        id={id}
+        value={value}
+        onChange={onChange}
+        className={`${base} appearance-none pr-9 [&>option]:text-ink`}
+      >
+        {children}
+      </select>
+      <Icon
+        name="chevron"
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/60"
+      />
+    </div>
+  );
 
   return (
     <form
       onSubmit={submit}
-      className="w-full rounded-2xl border border-white/15 bg-royal-deep/70 p-5 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-6"
+      className="w-full rounded-2xl border border-white/15 bg-royal-deep/75 p-5 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-6"
     >
       <div className="mb-4 flex items-center gap-2">
         <span className="h-px w-8 bg-brand-red" />
@@ -48,41 +68,57 @@ export default function TripPlanner() {
 
       <div className="grid gap-3.5 sm:grid-cols-2">
         <div>
-          <label className={label} htmlFor="tp-name">Name</label>
-          <input id="tp-name" required className={field} value={form.name} onChange={set("name")} />
+          <label className={label} htmlFor={`${uid}-name`}>Name</label>
+          <input id={`${uid}-name`} required className={base} value={form.name} onChange={set("name")} />
         </div>
         <div>
-          <label className={label} htmlFor="tp-phone">Phone</label>
-          <input id="tp-phone" required type="tel" className={field} value={form.phone} onChange={set("phone")} />
+          <label className={label} htmlFor={`${uid}-phone`}>Phone</label>
+          <input id={`${uid}-phone`} required type="tel" inputMode="tel" className={base} value={form.phone} onChange={set("phone")} />
         </div>
+
         <div className="sm:col-span-2">
-          <label className={label} htmlFor="tp-dest">Where do you want to go?</label>
-          <select id="tp-dest" className={field} value={form.destination} onChange={set("destination")}>
-            <option value="">Select a destination</option>
+          <label className={label} htmlFor={`${uid}-dest`}>Where do you want to go?</label>
+          <input
+            id={`${uid}-dest`}
+            list={`${uid}-dest-list`}
+            placeholder="Type or pick a destination"
+            className={base}
+            value={form.destination}
+            onChange={set("destination")}
+          />
+          <datalist id={`${uid}-dest-list`}>
             {destinationOptions.map((d) => (
-              <option key={d} value={d}>{d}</option>
+              <option key={d} value={d} />
             ))}
-          </select>
+          </datalist>
+        </div>
+
+        <div>
+          <label className={label} htmlFor={`${uid}-date`}>Travel date</label>
+          <input
+            id={`${uid}-date`}
+            type="date"
+            className={`${base} [color-scheme:dark]`}
+            value={form.date}
+            onChange={set("date")}
+          />
         </div>
         <div>
-          <label className={label} htmlFor="tp-dates">Travel dates</label>
-          <input id="tp-dates" type="text" placeholder="e.g. 12–17 Oct" className={field} value={form.date} onChange={set("date")} />
-        </div>
-        <div>
-          <label className={label} htmlFor="tp-trav">Travellers</label>
-          <select id="tp-trav" className={field} value={form.travellers} onChange={set("travellers")}>
-            {["1 Traveller", "2 Travellers", "3–4 Travellers", "5+ Travellers"].map((t) => (
+          <label className={label} htmlFor={`${uid}-trav`}>Travellers</label>
+          <Select id={`${uid}-trav`} value={form.travellers} onChange={set("travellers")}>
+            {travellerOptions.map((t) => (
               <option key={t} value={t}>{t}</option>
             ))}
-          </select>
+          </Select>
         </div>
+
         <div className="sm:col-span-2">
-          <label className={label} htmlFor="tp-type">Trip type</label>
-          <select id="tp-type" className={field} value={form.tripType} onChange={set("tripType")}>
+          <label className={label} htmlFor={`${uid}-type`}>Trip type</label>
+          <Select id={`${uid}-type`} value={form.tripType} onChange={set("tripType")}>
             {tripTypes.map((t) => (
               <option key={t} value={t}>{t}</option>
             ))}
-          </select>
+          </Select>
         </div>
       </div>
 

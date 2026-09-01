@@ -58,7 +58,7 @@ export default function EnquiryForm() {
         </div>
         <div>
           <label className={label} htmlFor="f-date">Travel date</label>
-          <input id="f-date" type="text" placeholder="e.g. Oct 2026" className={field} value={form.date} onChange={set("date")} />
+          <input id="f-date" type="date" className={field} value={form.date} onChange={set("date")} />
         </div>
         <div className="sm:col-span-2">
           <label className={label} htmlFor="f-trav">Travellers</label>
