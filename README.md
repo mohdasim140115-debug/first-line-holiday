@@ -16,6 +16,23 @@ npm start
 All copy, packages, destinations, itinerary, FAQs, gallery and contact
 details live in **`lib/content.js`**. No component edits needed for normal updates.
 
+## Enquiry emails (forms → your inbox)
+
+Every form (hero trip planner + contact form) POSTs to `/api/enquiry`, which
+emails the details to **firstlineholidys@gmail.com** and then sends the visitor
+to `/thank-you`.
+
+**One-time setup:**
+
+1. Go to <https://web3forms.com>, enter `firstlineholidys@gmail.com`, and copy
+   the **Access Key** they email you.
+2. **Local:** create `.env.local` (see `.env.example`) with
+   `WEB3FORMS_ACCESS_KEY=your-key`
+3. **Vercel:** Project → Settings → Environment Variables → add
+   `WEB3FORMS_ACCESS_KEY` = your key → redeploy.
+
+Until the key is set, forms show a "not configured" message instead of sending.
+
 ## Brand logo
 
 `public/logo/first-line-holidays.svg` is a **placeholder**. Replace it with the

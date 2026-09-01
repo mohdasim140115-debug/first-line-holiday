@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Icon from "./Icon";
-import { whatsappLink } from "@/lib/content";
+import { submitEnquiry } from "@/lib/submitEnquiry";
 
 const initial = {
   name: "",
@@ -15,21 +15,22 @@ const initial = {
 
 export default function EnquiryForm() {
   const [form, setForm] = useState(initial);
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | error
+  const [error, setError] = useState("");
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const msg = `New enquiry — First Line Holidays
-Name: ${form.name}
-Phone: ${form.phone}
-Email: ${form.email || "—"}
-Travel date: ${form.date || "Flexible"}
-Travellers: ${form.travellers || "—"}
-Message: ${form.message || "—"}`;
-    window.open(whatsappLink(msg), "_blank", "noopener");
-    setSent(true);
+    setStatus("sending");
+    setError("");
+    try {
+      await submitEnquiry({ ...form, source: "Contact form" });
+      window.location.href = "/thank-you";
+    } catch (err) {
+      setStatus("error");
+      setError(err.message || "Something went wrong.");
+    }
   };
 
   const field =
@@ -77,16 +78,15 @@ Message: ${form.message || "—"}`;
 
       <button
         type="submit"
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        disabled={status === "sending"}
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Send Enquiry
-        <Icon name="arrow" className="h-4 w-4" />
+        {status === "sending" ? "Sending…" : "Send Enquiry"}
+        {status !== "sending" ? <Icon name="arrow" className="h-4 w-4" /> : null}
       </button>
 
-      {sent ? (
-        <p className="mt-3 text-center text-xs text-royal">
-          Opening WhatsApp… if nothing happens, call us on the number listed.
-        </p>
+      {status === "error" ? (
+        <p className="mt-3 text-center text-xs text-brand-red">{error}</p>
       ) : null}
     </form>
   );

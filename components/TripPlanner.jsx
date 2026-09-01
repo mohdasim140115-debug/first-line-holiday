@@ -2,26 +2,34 @@
 
 import { useState } from "react";
 import Icon from "./Icon";
-import { whatsappLink, destinationOptions, tripTypes } from "@/lib/content";
+import { submitEnquiry } from "@/lib/submitEnquiry";
+import { destinationOptions, tripTypes } from "@/lib/content";
 
 export default function TripPlanner() {
   const [form, setForm] = useState({
+    name: "",
+    phone: "",
     destination: "",
-    dates: "",
+    date: "",
     travellers: "2 Travellers",
     tripType: "Couples",
   });
+  const [status, setStatus] = useState("idle"); // idle | sending | error
+  const [error, setError] = useState("");
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const msg = `Hello First Line Holidays, I'd like to plan a Kashmir trip.
-Destination: ${form.destination || "Not sure yet"}
-Travel dates: ${form.dates || "Flexible"}
-Travellers: ${form.travellers}
-Trip type: ${form.tripType}`;
-    window.open(whatsappLink(msg), "_blank", "noopener");
+    setStatus("sending");
+    setError("");
+    try {
+      await submitEnquiry({ ...form, source: "Hero trip planner" });
+      window.location.href = "/thank-you";
+    } catch (err) {
+      setStatus("error");
+      setError(err.message || "Something went wrong.");
+    }
   };
 
   const field =
@@ -39,6 +47,14 @@ Trip type: ${form.tripType}`;
       </div>
 
       <div className="grid gap-3.5 sm:grid-cols-2">
+        <div>
+          <label className={label} htmlFor="tp-name">Name</label>
+          <input id="tp-name" required className={field} value={form.name} onChange={set("name")} />
+        </div>
+        <div>
+          <label className={label} htmlFor="tp-phone">Phone</label>
+          <input id="tp-phone" required type="tel" className={field} value={form.phone} onChange={set("phone")} />
+        </div>
         <div className="sm:col-span-2">
           <label className={label} htmlFor="tp-dest">Where do you want to go?</label>
           <select id="tp-dest" className={field} value={form.destination} onChange={set("destination")}>
@@ -50,7 +66,7 @@ Trip type: ${form.tripType}`;
         </div>
         <div>
           <label className={label} htmlFor="tp-dates">Travel dates</label>
-          <input id="tp-dates" type="text" placeholder="e.g. 12–17 Oct" className={field} value={form.dates} onChange={set("dates")} />
+          <input id="tp-dates" type="text" placeholder="e.g. 12–17 Oct" className={field} value={form.date} onChange={set("date")} />
         </div>
         <div>
           <label className={label} htmlFor="tp-trav">Travellers</label>
@@ -72,11 +88,16 @@ Trip type: ${form.tripType}`;
 
       <button
         type="submit"
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        disabled={status === "sending"}
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Plan My Trip
-        <Icon name="arrow" className="h-4 w-4" />
+        {status === "sending" ? "Sending…" : "Plan My Trip"}
+        {status !== "sending" ? <Icon name="arrow" className="h-4 w-4" /> : null}
       </button>
+
+      {status === "error" ? (
+        <p className="mt-3 text-center text-xs text-brand-orange">{error}</p>
+      ) : null}
     </form>
   );
 }
