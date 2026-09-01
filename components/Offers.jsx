@@ -10,10 +10,10 @@ export default function Offers() {
         <SectionHeading
           eyebrow="More Offers"
           title="Short Tours & Day Trips"
-          subtitle="Quick add-ons and standalone day tours across the valley — sample rates, finalised to your group."
+          subtitle="Quick add-ons and standalone day tours across the valley — day trips you can add to any package."
         />
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {offers.map((o, i) => (
             <Reveal key={o.name} delay={i * 90} className="h-full">
               <OfferCard offer={o} />
