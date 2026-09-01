@@ -18,20 +18,17 @@ details live in **`lib/content.js`**. No component edits needed for normal updat
 
 ## Enquiry emails (forms → your inbox)
 
-Every form (hero trip planner + contact form) POSTs to `/api/enquiry`, which
-emails the details to **firstlineholidys@gmail.com** and then sends the visitor
-to `/thank-you`.
+Every form (hero trip planner + contact form) submits straight to
+[Web3Forms](https://web3forms.com) from the browser, which emails the details to
+**firstlineholidys@gmail.com**, then the visitor lands on `/thank-you`.
 
-**One-time setup:**
+The access key lives in `lib/content.js` as `WEB3FORMS_KEY` (it is a public key
+— safe in client code). To change the destination inbox, create a new key at
+web3forms.com and replace that value.
 
-1. Go to <https://web3forms.com>, enter `firstlineholidys@gmail.com`, and copy
-   the **Access Key** they email you.
-2. **Local:** create `.env.local` (see `.env.example`) with
-   `WEB3FORMS_ACCESS_KEY=your-key`
-3. **Vercel:** Project → Settings → Environment Variables → add
-   `WEB3FORMS_ACCESS_KEY` = your key → redeploy.
-
-Until the key is set, forms show a "not configured" message instead of sending.
+**First real submission:** Web3Forms sends a one-time verification email to
+firstlineholidys@gmail.com — click the link in it once, and every submission
+after that arrives normally.
 
 ## Brand logo
 

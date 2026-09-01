@@ -6,6 +6,5 @@
 *.pem
 npm-debug.log*
 .env*
-!.env.example
 .vercel
 next-env.d.ts
