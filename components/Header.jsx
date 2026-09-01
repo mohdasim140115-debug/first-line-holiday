@@ -31,12 +31,12 @@ export default function Header() {
         solid ? "bg-white shadow-[0_8px_30px_rgba(6,63,152,0.08)]" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[72px] lg:px-8">
+      <div className="mx-auto flex h-17.5 max-w-7xl items-center justify-between px-5 md:h-21 lg:px-8">
         <a
           href="#home"
           aria-label="First Line Holidays — home"
           className={`flex items-center rounded-lg transition-all ${
-            solid ? "" : "bg-white/95 px-2.5 py-1.5 shadow-sm"
+            solid ? "" : "bg-white/95 px-3 py-2 shadow-md"
           }`}
         >
           <Logo />

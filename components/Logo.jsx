@@ -8,7 +8,7 @@ export default function Logo({ className = "" }) {
       width={249}
       height={100}
       priority
-      className={`h-9 w-auto md:h-10 ${className}`}
+      className={`h-10 w-auto md:h-12 ${className}`}
     />
   );
 }
