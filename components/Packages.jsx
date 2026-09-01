@@ -13,7 +13,7 @@ export default function Packages() {
           subtitle="Thoughtfully planned journeys for couples, families and groups."
         />
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {packages.map((p, i) => (
             <Reveal key={p.name} delay={i * 90} className="h-full">
               <PackageCard pkg={p} />

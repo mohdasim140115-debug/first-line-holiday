@@ -13,7 +13,7 @@ export default function Offers() {
           subtitle="Quick add-ons and standalone day tours across the valley — sample rates, finalised to your group."
         />
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {offers.map((o, i) => (
             <Reveal key={o.name} delay={i * 90} className="h-full">
               <OfferCard offer={o} />

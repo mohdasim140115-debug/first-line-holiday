@@ -32,8 +32,14 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[72px] lg:px-8">
-        <a href="#home" aria-label="First Line Holidays — home" className="flex items-center">
-          <Logo variant={solid ? "color" : "light"} />
+        <a
+          href="#home"
+          aria-label="First Line Holidays — home"
+          className={`flex items-center rounded-lg transition-all ${
+            solid ? "" : "bg-white/95 px-2.5 py-1.5 shadow-sm"
+          }`}
+        >
+          <Logo />
         </a>
 
         <nav className="hidden lg:block" aria-label="Primary">

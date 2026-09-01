@@ -1,18 +1,14 @@
 import Image from "next/image";
 
-export default function Logo({ variant = "color", className = "" }) {
-  // `variant="light"` renders the logo on dark backgrounds using a CSS filter,
-  // keeping the official artwork itself untouched.
+export default function Logo({ className = "" }) {
   return (
     <Image
-      src="/logo/first-line-holidays.svg"
+      src="/logo.jpeg"
       alt="First Line Holidays"
-      width={200}
-      height={56}
+      width={249}
+      height={100}
       priority
-      className={`h-10 w-auto md:h-11 ${
-        variant === "light" ? "brightness-0 invert" : ""
-      } ${className}`}
+      className={`h-9 w-auto md:h-10 ${className}`}
     />
   );
 }
