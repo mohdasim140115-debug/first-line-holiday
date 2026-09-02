@@ -22,9 +22,32 @@ export default function EnquiryModal() {
       setStatus("idle");
       setError("");
       setOpen(true);
+      try {
+        sessionStorage.setItem("flh_enquiry_shown", "1");
+      } catch {}
     };
     window.addEventListener(ENQUIRY_EVENT, onOpen);
-    return () => window.removeEventListener(ENQUIRY_EVENT, onOpen);
+
+    // Auto-open once per browser session, a moment after the page loads.
+    let timer;
+    try {
+      if (!sessionStorage.getItem("flh_enquiry_shown")) {
+        timer = setTimeout(() => {
+          setOpen((current) => {
+            if (current) return current;
+            try {
+              sessionStorage.setItem("flh_enquiry_shown", "1");
+            } catch {}
+            return true;
+          });
+        }, 2500);
+      }
+    } catch {}
+
+    return () => {
+      window.removeEventListener(ENQUIRY_EVENT, onOpen);
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {

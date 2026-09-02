@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import Icon from "./Icon";
 import { nav } from "@/lib/content";
+import { openEnquiry } from "@/lib/enquiryBus";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -61,12 +62,13 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => openEnquiry()}
             className="hidden rounded-full bg-brand-red px-5 py-2.5 text-[0.8rem] font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg sm:inline-flex"
           >
             Plan Your Trip
-          </a>
+          </button>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -103,13 +105,16 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openEnquiry();
+              }}
               className="mt-4 flex w-full items-center justify-center rounded-full bg-brand-red px-5 py-3 text-sm font-semibold text-white"
             >
               Plan Your Trip
-            </a>
+            </button>
           </nav>
         </div>
       </div>
