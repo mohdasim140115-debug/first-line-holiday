@@ -12,7 +12,7 @@ export default function Hero() {
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="flh-kenburns object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-royal-deep/80 via-royal-deep/45 to-royal-deep/15" />
       <div className="absolute inset-0 bg-gradient-to-t from-royal-deep/45 to-transparent" />

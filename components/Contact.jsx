@@ -27,7 +27,7 @@ export default function Contact() {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
           {/* Contact info panel */}
-          <Reveal className="flex flex-col rounded-2xl bg-royal-deep p-6 text-white">
+          <Reveal variant="left" className="flex flex-col rounded-2xl bg-royal-deep p-6 text-white">
             <span className="eyebrow text-brand-orange">Reach Us</span>
             <p className="mt-3 font-serif text-2xl">{company.contactPerson}</p>
             <p className="text-sm text-white/60">{company.name}</p>

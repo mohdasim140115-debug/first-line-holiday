@@ -16,7 +16,7 @@ export default function WhyChoose() {
         {/* Feature cards */}
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {whyChoose.map((c, i) => (
-            <Reveal key={c.title} delay={i * 80} className="h-full">
+            <Reveal key={c.title} variant="scale" delay={i * 80} className="h-full">
               <article className="flex h-full flex-col rounded-2xl border border-ink/10 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_22px_50px_-24px_rgba(6,63,152,0.32)]">
                 <div className="mb-4 flex items-center justify-between">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-royal/10 text-royal">

@@ -8,7 +8,7 @@ export default function About() {
     <section id="about" className="bg-soft py-12 md:py-16">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 lg:grid-cols-2 lg:gap-14 lg:px-8">
         {/* Images */}
-        <Reveal className="relative order-2 lg:order-1">
+        <Reveal variant="left" className="relative order-2 lg:order-1">
           <div className="relative h-64 w-full overflow-hidden rounded-2xl md:h-[23rem]">
             <Image
               src={images.aboutLarge}
@@ -18,7 +18,7 @@ export default function About() {
               className="object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 -right-3 hidden h-40 w-52 overflow-hidden rounded-xl border-4 border-white shadow-2xl sm:block md:-right-8">
+          <div className="flh-float absolute -bottom-6 -right-3 hidden h-40 w-52 overflow-hidden rounded-xl border-4 border-white shadow-2xl sm:block md:-right-8">
             <Image
               src={images.aboutSmall}
               alt="Houseboats along the water in Srinagar"
@@ -30,7 +30,7 @@ export default function About() {
         </Reveal>
 
         {/* Text */}
-        <Reveal delay={120} className="order-1 lg:order-2">
+        <Reveal variant="right" delay={120} className="order-1 lg:order-2">
           <span className="eyebrow flex items-center gap-3 text-brand-red">
             <span className="h-px w-10 bg-brand-red" />
             About Us

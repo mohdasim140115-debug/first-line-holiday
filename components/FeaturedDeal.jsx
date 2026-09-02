@@ -12,7 +12,7 @@ export default function FeaturedDeal() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Text */}
-          <Reveal>
+          <Reveal variant="right">
             <span className="eyebrow flex items-center gap-3 text-brand-red">
               <span className="h-px w-10 bg-brand-red" />
               Featured Package
@@ -46,9 +46,9 @@ export default function FeaturedDeal() {
           </Reveal>
 
           {/* Image collage */}
-          <Reveal delay={120} className="relative">
+          <Reveal variant="left" delay={120} className="relative">
             {d.badge ? (
-              <span className="absolute right-3 top-3 z-10 rounded-full bg-white px-3 py-1 text-[0.7rem] font-bold text-brand-red shadow">
+              <span className="flh-float absolute right-3 top-3 z-10 rounded-full bg-white px-3 py-1 text-[0.7rem] font-bold text-brand-red shadow">
                 {d.badge}
               </span>
             ) : null}
