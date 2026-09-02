@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 // Production domain — update if it ever changes.
-const SITE_URL = "https://firstlineholidays.in";
+const SITE_URL = "https://www.firstlineholidays.in";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
