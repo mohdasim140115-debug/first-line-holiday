@@ -15,8 +15,8 @@ const inter = Inter({
   display: "swap",
 });
 
-// Change this to your final domain (e.g. https://firstlineholidays.com) once set.
-const SITE_URL = "https://first-line-holiday.vercel.app";
+// Production domain — update if it ever changes.
+const SITE_URL = "https://firstlineholidays.in";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
