@@ -14,8 +14,8 @@ export default function Hero() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-royal-deep/92 via-royal-deep/72 to-royal-deep/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-royal-deep/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-royal-deep/80 via-royal-deep/45 to-royal-deep/15" />
+      <div className="absolute inset-0 bg-gradient-to-t from-royal-deep/45 to-transparent" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 pt-28 md:min-h-[92vh] md:pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8">
         {/* Left — headline */}
