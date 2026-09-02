@@ -15,11 +15,15 @@ const inter = Inter({
   display: "swap",
 });
 
+// Change this to your final domain (e.g. https://firstlineholidays.com) once set.
+const SITE_URL = "https://first-line-holiday.vercel.app";
+
 export const metadata = {
-  metadataBase: new URL("https://firstlineholidays.example"),
+  metadataBase: new URL(SITE_URL),
   title: "First Line Holidays | Kashmir Travel & Holiday Packages",
   description:
     "Discover Kashmir with First Line Holidays. Explore personalized Kashmir holiday packages, beautiful destinations, comfortable stays and unforgettable travel experiences.",
+  applicationName: "First Line Holidays",
   keywords: [
     "Kashmir travel",
     "Kashmir holiday packages",
@@ -29,10 +33,21 @@ export const metadata = {
     "First Line Holidays",
   ],
   authors: [{ name: "First Line Holidays" }],
+  creator: "First Line Holidays",
+  publisher: "First Line Holidays",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
     title: "First Line Holidays | Kashmir Travel & Holiday Packages",
     description:
       "Personalized Kashmir holiday packages, beautiful destinations, comfortable stays and unforgettable travel experiences.",
+    url: "/",
     type: "website",
     locale: "en_IN",
     siteName: "First Line Holidays",
