@@ -28,25 +28,43 @@ export default function EnquiryModal() {
     };
     window.addEventListener(ENQUIRY_EVENT, onOpen);
 
-    // Auto-open once per browser session, a moment after the page loads.
-    let timer;
+    // Auto-open once per session, on the visitor's first scroll (never during
+    // a no-scroll audit, and it doesn't interrupt someone still reading).
+    let armed = false;
+    let graceTimer;
+    let seen = true;
     try {
-      if (!sessionStorage.getItem("flh_enquiry_shown")) {
-        timer = setTimeout(() => {
-          setOpen((current) => {
-            if (current) return current;
-            try {
-              sessionStorage.setItem("flh_enquiry_shown", "1");
-            } catch {}
-            return true;
-          });
-        }, 3500);
-      }
+      seen = !!sessionStorage.getItem("flh_enquiry_shown");
     } catch {}
+
+    const trigger = () => {
+      cleanupAuto();
+      setOpen((current) => {
+        if (current) return current;
+        try {
+          sessionStorage.setItem("flh_enquiry_shown", "1");
+        } catch {}
+        return true;
+      });
+    };
+    const onFirstScroll = () => {
+      if (armed) trigger();
+    };
+    function cleanupAuto() {
+      window.removeEventListener("scroll", onFirstScroll);
+      if (graceTimer) clearTimeout(graceTimer);
+    }
+
+    if (!seen) {
+      graceTimer = setTimeout(() => {
+        armed = true;
+      }, 800);
+      window.addEventListener("scroll", onFirstScroll, { passive: true });
+    }
 
     return () => {
       window.removeEventListener(ENQUIRY_EVENT, onOpen);
-      if (timer) clearTimeout(timer);
+      cleanupAuto();
     };
   }, []);
 

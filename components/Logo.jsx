@@ -7,7 +7,9 @@ export default function Logo({ className = "" }) {
       alt="First Line Holidays"
       width={294}
       height={122}
-      priority
+      // Not the LCP element — no `priority`, so it isn't preloaded and doesn't
+      // compete with the hero image. It's in the initial viewport so the
+      // browser still fetches it right away.
       className={`h-11 w-auto md:h-13 ${className}`}
     />
   );

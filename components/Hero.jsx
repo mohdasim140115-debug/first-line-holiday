@@ -6,13 +6,12 @@ import heroImg from "@/assets/hero.jpg";
 
 export default function Hero() {
   return (
-    <section id="home" className="relative w-full overflow-hidden">
+    <section id="home" className="relative w-full overflow-hidden bg-royal-deep">
       <Image
         src={heroImg}
         alt="Traditional houseboats on Dal Lake with snow-capped mountains behind, Srinagar, Kashmir"
         fill
         priority
-        placeholder="blur"
         quality={68}
         sizes="100vw"
         className="object-cover"
