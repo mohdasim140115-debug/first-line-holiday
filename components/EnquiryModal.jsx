@@ -5,7 +5,7 @@ import Icon from "./Icon";
 import { submitEnquiry } from "@/lib/submitEnquiry";
 import { ENQUIRY_EVENT } from "@/lib/enquiryBus";
 
-const initial = { name: "", phone: "", email: "", date: "", travellers: "", message: "" };
+const initial = { name: "", phone: "", email: "", travellers: "", date: "", message: "" };
 
 export default function EnquiryModal() {
   const uid = useId();
@@ -86,7 +86,9 @@ export default function EnquiryModal() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
+    setError("");
     try {
       await submitEnquiry({
         ...form,
@@ -101,8 +103,8 @@ export default function EnquiryModal() {
   };
 
   const field =
-    "h-10 w-full rounded-lg border border-ink/15 bg-white px-3 text-sm text-ink outline-none transition focus:border-royal focus:ring-2 focus:ring-royal/15";
-  const label = "mb-1 block text-[0.68rem] font-semibold uppercase tracking-widest text-ink/45";
+    "h-10 w-full rounded-lg border border-ink/12 bg-soft pl-9 pr-3 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-royal focus:bg-white focus:ring-2 focus:ring-royal/15";
+  const iconCls = "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/35";
 
   return (
     <div
@@ -119,82 +121,127 @@ export default function EnquiryModal() {
       />
 
       <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-ink/10 px-5 py-4">
-          <div>
-            <p id={`${uid}-title`} className="font-serif text-xl text-royal-deep">
-              Send an Enquiry
-            </p>
-            {pkg ? (
-              <p className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-royal/8 px-2.5 py-0.5 text-[0.72rem] font-medium text-royal">
-                <Icon name="tag" className="h-3 w-3" />
-                {pkg}
-              </p>
-            ) : (
-              <p className="mt-0.5 text-[0.8rem] text-ink/50">We usually reply the same day.</p>
-            )}
-          </div>
+        {/* Gradient header band */}
+        <div className="relative shrink-0 bg-gradient-to-br from-royal to-royal-deep px-5 pb-4 pt-4 text-white">
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close"
-            className="-mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink/40 transition-colors hover:bg-ink/5 hover:text-ink"
+            className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-white/90 transition-colors hover:bg-white/25"
           >
-            <Icon name="close" className="h-4 w-4" />
+            <Icon name="close" className="h-3.5 w-3.5" />
           </button>
+
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wider text-white">
+            {pkg ? <Icon name="tag" className="h-3 w-3" /> : <Icon name="sparkle" className="h-3 w-3" />}
+            {pkg || "Plan with local experts"}
+          </span>
+
+          <p id={`${uid}-title`} className="mt-2 font-serif text-lg leading-tight">
+            Plan Your Kashmir Trip
+          </p>
         </div>
 
         {/* Body */}
-        <form onSubmit={submit} className="flex-1 overflow-y-auto px-5 py-4">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div>
-              <label className={label} htmlFor={`${uid}-name`}>Name</label>
-              <input id={`${uid}-name`} required className={field} value={form.name} onChange={set("name")} />
-            </div>
-            <div>
-              <label className={label} htmlFor={`${uid}-phone`}>Phone</label>
-              <input id={`${uid}-phone`} required type="tel" className={field} value={form.phone} onChange={set("phone")} />
-            </div>
-            <div>
-              <label className={label} htmlFor={`${uid}-email`}>Email</label>
-              <input id={`${uid}-email`} type="email" className={field} value={form.email} onChange={set("email")} />
-            </div>
-            <div>
-              <label className={label} htmlFor={`${uid}-date`}>Travel date</label>
-              <input id={`${uid}-date`} type="date" className={field} value={form.date} onChange={set("date")} />
-            </div>
-            <div className="sm:col-span-2">
-              <label className={label} htmlFor={`${uid}-trav`}>Travellers</label>
-              <input id={`${uid}-trav`} type="number" min="1" placeholder="2" className={field} value={form.travellers} onChange={set("travellers")} />
-            </div>
-            <div className="sm:col-span-2">
-              <label className={label} htmlFor={`${uid}-msg`}>Message</label>
-              <textarea
-                id={`${uid}-msg`}
-                rows={3}
-                placeholder="Tell us what you're planning…"
-                className="w-full rounded-lg border border-ink/15 bg-white px-3 py-2 text-sm text-ink outline-none transition focus:border-royal focus:ring-2 focus:ring-royal/15"
-                value={form.message}
-                onChange={set("message")}
+        <form onSubmit={submit} className="flex-1 overflow-y-auto px-5 pb-5 pt-4">
+          <p className="text-[0.78rem] leading-snug text-ink/55">
+            Fill in the details and our Kashmir team will send you a free customized itinerary.
+          </p>
+
+          <div className="mt-3 space-y-2.5">
+            <div className="relative">
+              <Icon name="user" className={iconCls} />
+              <input
+                aria-label="Full name"
+                required
+                placeholder="Full name"
+                className={field}
+                value={form.name}
+                onChange={set("name")}
               />
             </div>
+
+            <div className="relative">
+              <Icon name="phone" className={iconCls} />
+              <input
+                aria-label="WhatsApp number"
+                required
+                type="tel"
+                inputMode="tel"
+                placeholder="WhatsApp number"
+                className={field}
+                value={form.phone}
+                onChange={set("phone")}
+              />
+            </div>
+
+            <div className="relative">
+              <Icon name="mail" className={iconCls} />
+              <input
+                aria-label="Email"
+                type="email"
+                placeholder="Email address"
+                className={field}
+                value={form.email}
+                onChange={set("email")}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="relative">
+                <Icon name="users" className={iconCls} />
+                <input
+                  aria-label="Travellers"
+                  type="number"
+                  min="1"
+                  placeholder="Travellers"
+                  className={field}
+                  value={form.travellers}
+                  onChange={set("travellers")}
+                />
+              </div>
+              <div className="relative">
+                <Icon name="calendar" className={iconCls} />
+                <input
+                  aria-label="Travel date"
+                  type="date"
+                  className={`${field} pr-2`}
+                  value={form.date}
+                  onChange={set("date")}
+                />
+              </div>
+            </div>
+
+            <textarea
+              aria-label="Message"
+              rows={2}
+              placeholder="Anything else we should know?"
+              className="w-full rounded-lg border border-ink/12 bg-soft px-3 py-2 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-royal focus:bg-white focus:ring-2 focus:ring-royal/15"
+              value={form.message}
+              onChange={set("message")}
+            />
           </div>
 
           {status === "error" ? (
-            <p className="mt-3 text-center text-xs text-brand-red">{error}</p>
+            <p className="mt-2.5 text-center text-xs text-brand-red">{error}</p>
           ) : null}
 
           <button
             type="submit"
             disabled={status === "sending"}
-            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
+            className="mt-3.5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {status === "sending" ? "Sending…" : "Send Enquiry"}
+            {status === "sending" ? "Sending…" : "Get My Free Kashmir Quote"}
             {status !== "sending" ? <Icon name="arrow" className="h-4 w-4" /> : null}
           </button>
 
-          <p className="mt-2.5 text-center text-[0.7rem] text-ink/40">
-            Your details are only used to plan your trip.
+          <p className="mt-2.5 flex items-center justify-center gap-3 text-[0.64rem] font-medium uppercase tracking-wider text-ink/40">
+            <span className="inline-flex items-center gap-1">
+              <Icon name="shield" className="h-3 w-3" /> Secure
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <Icon name="bolt" className="h-3 w-3 text-brand-orange" /> Fast response
+            </span>
           </p>
         </form>
       </div>

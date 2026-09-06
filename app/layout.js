@@ -2,13 +2,20 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ScrollProgress";
 
+// Playfair is only used for headings. One weight = one small file, and it is
+// NOT preloaded so it never races the hero (LCP) image — it swaps in from the
+// inlined CSS a moment later. `adjustFontFallback` keeps CLS at 0.
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["500"],
+  style: ["normal"],
   variable: "--font-playfair",
   display: "swap",
+  preload: false,
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
+// Inter is the body/UI font — preload it so first paint text is right.
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -21,16 +28,20 @@ const SITE_URL = "https://www.firstlineholidays.in";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "First Line Holidays | Kashmir Travel & Holiday Packages",
+  title: "Kashmir Tour Packages & Holiday Trips | First Line Holidays",
   description:
-    "Discover Kashmir with First Line Holidays. Explore personalized Kashmir holiday packages, beautiful destinations, comfortable stays and unforgettable travel experiences.",
+    "Book Kashmir tour packages with First Line Holidays — Kashmir trip packages for couples, families and groups. Personalised Kashmir holidays with comfortable stays, transport and local expertise.",
   applicationName: "First Line Holidays",
   keywords: [
-    "Kashmir travel",
-    "Kashmir holiday packages",
-    "Srinagar tour",
-    "Gulmarg",
-    "Pahalgam",
+    "kashmir tour packages",
+    "kashmir trip",
+    "kashmir holidays",
+    "kashmir package",
+    "kashmir trip package",
+    "kashmir holiday packages",
+    "srinagar tour packages",
+    "kashmir tour packages for family",
+    "kashmir tour packages for couple",
     "First Line Holidays",
   ],
   authors: [{ name: "First Line Holidays" }],
@@ -45,9 +56,9 @@ export const metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   openGraph: {
-    title: "First Line Holidays | Kashmir Travel & Holiday Packages",
+    title: "Kashmir Tour Packages & Holiday Trips | First Line Holidays",
     description:
-      "Personalized Kashmir holiday packages, beautiful destinations, comfortable stays and unforgettable travel experiences.",
+      "Kashmir tour packages and trip packages for couples, families and groups — personalised Kashmir holidays planned around you.",
     url: "/",
     type: "website",
     locale: "en_IN",
@@ -55,9 +66,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "First Line Holidays | Kashmir Travel & Holiday Packages",
+    title: "Kashmir Tour Packages & Holiday Trips | First Line Holidays",
     description:
-      "Personalized Kashmir holiday packages, beautiful destinations and comfortable stays.",
+      "Kashmir tour packages and trip packages for couples, families and groups — personalised Kashmir holidays.",
   },
 };
 

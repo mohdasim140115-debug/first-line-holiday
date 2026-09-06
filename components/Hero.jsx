@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Icon from "./Icon";
 import TripPlanner from "./TripPlanner";
-import { heroTrust } from "@/lib/content";
+import OfferCountdown from "./OfferCountdown";
+import { heroTrust, heroOffer } from "@/lib/content";
 import heroImg from "@/assets/hero.jpg";
 
 export default function Hero() {
@@ -12,34 +13,37 @@ export default function Hero() {
         alt="Traditional houseboats on Dal Lake with snow-capped mountains behind, Srinagar, Kashmir"
         fill
         priority
-        quality={68}
+        placeholder="blur"
+        quality={60}
         sizes="100vw"
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-royal-deep/80 via-royal-deep/45 to-royal-deep/15" />
       <div className="absolute inset-0 bg-gradient-to-t from-royal-deep/45 to-transparent" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-5 pb-16 pt-28 md:min-h-[92vh] md:pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 px-5 pb-14 pt-24 md:min-h-[78vh] md:pt-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-8">
         {/* Left — headline */}
         <div className="max-w-xl">
-          <p className="eyebrow flex items-center gap-3 text-brand-orange">
-            <span className="h-px w-10 bg-brand-orange" />
-            Your Journey Starts Here
-          </p>
+          <OfferCountdown />
 
-          <h1 className="mt-4 font-serif font-semibold leading-[1.02] tracking-tight text-white">
-            <span className="block text-2xl sm:text-3xl">Experience</span>
-            <span className="block text-[3.4rem] uppercase tracking-tight text-brand-orange sm:text-7xl lg:text-[5rem]">
-              Kashmir
-            </span>
-            <span className="block text-2xl sm:text-3xl">Like Never Before</span>
+          <h1 className="mt-4 font-serif text-[2rem] font-semibold leading-[1.12] tracking-tight text-white sm:text-[2.6rem] lg:text-[3.1rem]">
+            Best <span className="text-brand-orange">Kashmir Tour Packages</span> for Holiday &amp;
+            Trip in 2026
           </h1>
 
-          <p className="mt-5 max-w-md text-base leading-relaxed text-white/80 sm:text-lg">
-            Beautiful journeys across Kashmir, thoughtfully planned around you.
+          <p className="mt-3 text-sm font-medium text-white/85 sm:text-base">
+            {heroOffer.ratingNote}
           </p>
 
-          <ul className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/75 sm:text-[0.95rem]">
+            Book customized{" "}
+            <span className="font-semibold text-brand-orange">Kashmir holiday packages</span> with a
+            trusted{" "}
+            <span className="font-semibold text-brand-orange">travel agency for Kashmir tours</span>.
+            Local operators for Srinagar, Gulmarg &amp; Pahalgam vacation trips.
+          </p>
+
+          <ul className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
             {heroTrust.map((t, i) => (
               <li key={t} className="flex items-center gap-2 text-[0.8rem] font-medium text-white/80">
                 {i > 0 ? <span className="hidden h-3 w-px bg-white/25 sm:mr-3 sm:block" /> : null}

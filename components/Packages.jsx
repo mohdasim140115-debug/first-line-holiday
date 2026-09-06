@@ -9,8 +9,8 @@ export default function Packages() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="Holiday Packages"
-          title="Popular Kashmir Packages"
-          subtitle="Thoughtfully planned journeys for couples, families and groups."
+          title="Popular Kashmir Tour Packages"
+          subtitle="Kashmir trip packages thoughtfully planned for couples, families and groups."
         />
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -36,13 +36,13 @@ export default function About() {
             About Us
           </span>
           <h2 className="mt-4 font-serif text-2xl leading-tight text-royal-deep sm:text-[2.1rem] md:text-[2.45rem]">
-            Your Trusted Kashmir Travel Partner
+            Your Trusted Kashmir Tour &amp; Holiday Partner
           </h2>
           <p className="mt-4 max-w-lg text-ink/70">
             {company.name} is a Kashmir-based travel company led by {company.contactPerson}, planning
-            personal journeys across the valley from our base in {company.address.line1}. From the
-            first conversation to the drive back to the airport, we handle the stays, transport and
-            route so your trip feels effortless — and worth remembering.
+            personalised Kashmir tour packages and holidays from our base in {company.address.line1}.
+            From the first conversation to the drive back to the airport, we handle the stays,
+            transport and route so your Kashmir trip feels effortless — and worth remembering.
           </p>
 
           <ul className="mt-6 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
