@@ -1,19 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
+// Writes the scroll percentage straight to a CSS var via rAF — no React
+// re-renders per scroll event.
 export default function ScrollProgress() {
-  const [pct, setPct] = useState(0);
+  const barRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
       const h = document.documentElement;
       const max = h.scrollHeight - h.clientHeight;
-      setPct(max > 0 ? (h.scrollTop / max) * 100 : 0);
+      const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      if (barRef.current) barRef.current.style.width = `${pct}%`;
     };
-    onScroll();
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -23,8 +34,8 @@ export default function ScrollProgress() {
   return (
     <div className="fixed inset-x-0 top-0 z-[60] h-0.5 bg-transparent">
       <div
-        className="h-full bg-gradient-to-r from-brand-red to-brand-orange transition-[width] duration-150 ease-out"
-        style={{ width: `${pct}%` }}
+        ref={barRef}
+        className="h-full w-0 bg-gradient-to-r from-brand-red to-brand-orange"
       />
     </div>
   );

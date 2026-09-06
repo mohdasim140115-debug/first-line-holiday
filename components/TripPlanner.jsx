@@ -59,7 +59,7 @@ export default function TripPlanner() {
   return (
     <form
       onSubmit={submit}
-      className="w-full rounded-2xl border border-white/15 bg-royal-deep/75 p-5 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-6"
+      className="w-full rounded-2xl border border-white/15 bg-royal-deep/92 p-5 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] md:p-6"
     >
       <div className="mb-4 flex items-center gap-2">
         <span className="h-px w-8 bg-brand-red" />

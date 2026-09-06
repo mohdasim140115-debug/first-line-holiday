@@ -88,7 +88,7 @@ export default function PackageCard({ pkg }) {
               {pkg.wasPrice ? (
                 <span className="mr-1 text-[0.7rem] text-ink/40 line-through">{pkg.wasPrice}</span>
               ) : null}
-              <span className="text-base font-extrabold text-royal-deep">{pkg.price}</span>
+              <span className="text-base font-bold text-royal-deep">{pkg.price}</span>
               <span className="ml-0.5 text-[0.6rem] font-medium text-ink/45">{pkg.unit}</span>
             </span>
           </div>

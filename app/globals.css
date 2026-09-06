@@ -89,20 +89,7 @@ body {
   filter: none;
 }
 
-/* Gentle cinematic zoom for hero / full-bleed imagery */
-@keyframes flh-kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.12);
-  }
-}
-.flh-kenburns {
-  animation: flh-kenburns 24s ease-in-out infinite alternate;
-}
-
-/* Soft float */
+/* Soft float — used on a couple of small decorative elements */
 @keyframes flh-float {
   0%,
   100% {
@@ -116,16 +103,6 @@ body {
   animation: flh-float 6s ease-in-out infinite;
 }
 
-/* Slow shimmer sweep for accent lines / badges */
-@keyframes flh-shine {
-  0% {
-    background-position: -150% 0;
-  }
-  100% {
-    background-position: 250% 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -133,7 +110,6 @@ body {
     filter: none !important;
     transition: none;
   }
-  .flh-kenburns,
   .flh-float,
   .flh-pulse,
   .flh-scroll-dot {
@@ -178,16 +154,3 @@ body {
   animation: flh-scroll 1.8s infinite;
 }
 
-.hero-fade {
-  animation: flh-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes flh-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
