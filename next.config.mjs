@@ -6,8 +6,8 @@ const nextConfig = {
     root: fileURLToPath(new URL(".", import.meta.url)),
   },
   images: {
-    // AVIF first (≈20-30% smaller than WebP for photos), WebP fallback.
-    formats: ["image/avif", "image/webp"],
+    // WebP only — AVIF decode was spiking Total Blocking Time on desktop.
+    formats: ["image/webp"],
     // Allowed <Image quality> values (Next 16 requires an allowlist).
     qualities: [60, 68, 75],
     remotePatterns: [

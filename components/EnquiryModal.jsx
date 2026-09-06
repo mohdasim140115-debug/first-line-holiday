@@ -40,7 +40,7 @@ export default function EnquiryModal() {
             } catch {}
             return true;
           });
-        }, 2500);
+        }, 3500);
       }
     } catch {}
 
@@ -97,7 +97,7 @@ export default function EnquiryModal() {
         type="button"
         aria-label="Close"
         onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-royal-deep/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-royal-deep/80"
       />
 
       <div className="relative z-10 flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl">
