@@ -1,6 +1,10 @@
 import { Playfair_Display, Inter } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ScrollProgress";
+
+// Google Tag Manager container. Loads on every route via the root layout.
+const GTM_ID = "GTM-PXS376DH";
 
 // Playfair is only used for headings. One weight = one small file, and it is
 // NOT preloaded so it never races the hero (LCP) image — it swaps in from the
@@ -81,7 +85,18 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body>
+        {/* Google Tag Manager (noscript) — immediately after the opening body tag */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         <ScrollProgress />
         {children}
       </body>
