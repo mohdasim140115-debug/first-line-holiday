@@ -36,7 +36,7 @@ export default function TripPlanner() {
   };
 
   const base =
-    "h-11 w-full rounded-lg border border-white/20 bg-white/10 px-3.5 text-sm text-white outline-none transition placeholder:text-white/45 focus:border-white/60 focus:bg-white/15";
+    "h-10 w-full rounded-lg border border-white/20 bg-white/10 px-3.5 text-sm text-white outline-none transition placeholder:text-white/45 focus:border-white/60 focus:bg-white/15";
   const label = "mb-1.5 block text-[0.68rem] font-semibold uppercase tracking-wider text-white/60";
 
   const Select = ({ id, value, onChange, children }) => (
@@ -59,14 +59,14 @@ export default function TripPlanner() {
   return (
     <form
       onSubmit={submit}
-      className="w-full rounded-2xl border border-white/15 bg-royal-deep/92 p-5 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] md:p-6"
+      className="w-full rounded-2xl border border-white/15 bg-royal-deep/92 p-4 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.6)] md:p-5"
     >
-      <div className="mb-4 flex items-center gap-2">
+      <div className="mb-3 flex items-center gap-2">
         <span className="h-px w-8 bg-brand-red" />
         <span className="eyebrow text-brand-orange">Plan Your Trip</span>
       </div>
 
-      <div className="grid gap-3.5 sm:grid-cols-2">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor={`${uid}-name`}>Name</label>
           <input id={`${uid}-name`} required className={base} value={form.name} onChange={set("name")} />
@@ -125,7 +125,7 @@ export default function TripPlanner() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "sending" ? "Sending…" : "Plan My Trip"}
         {status !== "sending" ? <Icon name="arrow" className="h-4 w-4" /> : null}
